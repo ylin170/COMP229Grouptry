@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-console.log('Mongo URI:', process.env.MONGO_URI); // Add this line to check if the URI is loaded
+console.log('Mongo URI:', process.env.MONGO_URI);
 
 const connectDB = async () => {
     try {

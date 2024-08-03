@@ -1,5 +1,14 @@
 const jwt = require('jsonwebtoken');
 
+function generateToken(user) {
+  const token = jwt.sign(
+      { id: user.id },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' } // Set expiry time to 7 days or any desired time
+  );
+  return token;
+}
+
 module.exports = function (req, res, next) {
   // Get token from header
   const authHeader = req.header('Authorization');

@@ -1,20 +1,23 @@
-require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
 const connectDB = require('./config/db');
-
 const app = express();
+const cors = require('cors');
 
-// Connect to Database
+// Connect Database
 connectDB();
 
-// Middleware
-app.use(bodyParser.json());
+// Init Middleware
+app.use(express.json({ extended: false }));
 
-// Routes
+// Enable CORS
+app.use(cors());
+
+// Define Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/posts', require('./routes/posts'));
 app.use('/api/comments', require('./routes/comments'));
+app.use('/api/users', require('./routes/users'));
 
 const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

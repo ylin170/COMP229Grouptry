@@ -1,3 +1,5 @@
+// simple-blog-app/routes/posts.js
+
 const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
@@ -6,19 +8,19 @@ const auth = require('../middleware/auth');
 // Create a new post
 router.post('/', auth, async (req, res) => {
     try {
-      const { title, content } = req.body;
-      const newPost = new Post({
-        title,
-        content,
-        author: req.user.id,
-      });
-      const post = await newPost.save();
-      res.json(post);
+        const { title, content } = req.body;
+        const newPost = new Post({
+            title,
+            content,
+            author: req.user.id,
+        });
+        const post = await newPost.save();
+        res.json(post);
     } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error');
+        console.error(err.message);
+        res.status(500).send('Server Error');
     }
-  });
+});
 
 // Get all posts
 router.get('/', async (req, res) => {
@@ -78,9 +80,9 @@ router.put('/:id', auth, async (req, res) => {
 });
 
 // Delete a post
-router.delete('/:postId', auth, async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
     try {
-        const post = await Post.findById(req.params.postId);
+        const post = await Post.findById(req.params.id);
         if (!post) return res.status(404).json({ error: 'Post not found' });
 
         // Ensure the user deleting the post is the author
@@ -95,4 +97,5 @@ router.delete('/:postId', auth, async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 });
+
 module.exports = router;
