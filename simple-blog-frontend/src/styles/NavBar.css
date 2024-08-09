@@ -1,0 +1,30 @@
+/* simple-blog-frontend/src/styles/NavBar.css */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    height: 40px;
+    margin-right: 0.5rem;
+  }
+  
+  .navbar-links a {
+    margin: 0 0.5rem;
+    text-decoration: none;
+    color: #798a9b;
+  }
+  
+  .navbar-links a:hover {
+    text-decoration: underline;
+  }
+  

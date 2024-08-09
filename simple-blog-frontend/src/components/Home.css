@@ -1,0 +1,134 @@
+/* Improved NavBar */
+.navbar {
+    background-color: #3e3e3e; /* A muted, neutral color that complements the background */
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* NavBar Links */
+.navbar-links a {
+    color: #f5f5f5; /* Light color for better contrast */
+    margin-right: 20px;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+}
+
+.navbar-links a:hover {
+    color: #ffcb05; /* Subtle yellow hover effect for a touch of contrast */
+}
+
+/* Background Image with Overlay */
+.background-image {
+    position: relative;
+    min-height: 100vh; /* Use min-height to cover the viewport height */
+    width: 100vw; /* Ensure the image covers the entire width */
+    display: flex;
+    align-items: flex-start; /* Align content to the top */
+    justify-content: flex-start; /* Align content to the left */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    padding: 30px; /* Add padding to position the text and buttons away from the edges */
+}
+
+.background-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); /* Slightly lighter overlay for better visibility */
+    z-index: 1;
+}
+
+.background-image .title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    z-index: 2;
+    font-family: 'Merriweather', serif;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* Text shadow for readability */
+    margin: 0; /* Remove default margin */
+}
+
+/* Button Styling */
+.background-image .buttons {
+    z-index: 2;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row; /* Align buttons in a row */
+    gap: 15px; /* Add space between buttons */
+    width: 100%;
+    max-width: 600px; /* Set a max width for the buttons */
+    align-items: center; /* Center align the buttons */
+    justify-content: space-between; /* Distribute buttons evenly */
+}
+
+.background-image .btn {
+    padding: 12px 25px;
+    font-size: 1rem;
+    color: white;
+    background-color: #3e3e3e; /* Match the button color with the navbar */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    flex: 1; /* Make buttons flexible to fill space */
+    text-align: center; /* Center the text inside the button */
+}
+
+.background-image .btn:hover {
+    background-color: #555555; /* Slightly darker on hover */
+}
+
+/* Options Grid */
+.options-grid {
+    display: flex;
+    flex-direction: row; /* Arrange buttons in a row */
+    align-items: center;
+    justify-content: center;
+    gap: 30px; /* Increase space between buttons */
+    width: 100%; /* Make buttons take full width */
+    max-width: 800px; /* Increase the max width for the button container */
+    margin-top: 30px; /* Add some top margin */
+}
+
+.option {
+    padding: 15px;
+    background-color: #555555; /* A neutral dark color for the options */
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    width: 100%; /* Make buttons take full width */
+    text-align: center;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    flex: 1; /* Make each option take equal space */
+}
+
+.option:hover {
+    background-color: #707070; /* Lighter hover effect */
+}
+
+/* Sign Out Button */
+.signout-button {
+    padding: 15px;
+    width: 100%;
+    background-color: #e74c3c; /* Red color to differentiate the sign-out button */
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    flex: 1; /* Make the sign-out button flexible to match other buttons */
+}
+
+.signout-button:hover {
+    background-color: #c0392b; /* Slightly darker on hover */
+}

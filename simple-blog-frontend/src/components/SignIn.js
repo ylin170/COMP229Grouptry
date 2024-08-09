@@ -23,14 +23,72 @@ const SignIn = () => {
         }
     };
 
+    // Style object for the signup container
+    const signinContainerStyle = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        backgroundImage: 'url("/assets/signup-background.jpg")', // Set your background image here
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+    };
+
     return (
-        <form onSubmit={onSubmit}>
-            <h1>Sign In</h1>
-            {message && <p>{message}</p>}
-            <input type="text" name="username" value={formData.username} onChange={onChange} required />
-            <input type="password" name="password" value={formData.password} onChange={onChange} required />
-            <button type="submit">Sign In</button>
-        </form>
+        <div style={signinContainerStyle} className="signin-container">
+            <form onSubmit={onSubmit} style={{ background: 'rgba(255, 255, 255, 0.0)' }}>
+                <h1 style={{ color: '#333', fontFamily: 'Merriweather', marginBottom: '20px', textAlign: 'center' }}>Sign In</h1>
+                {message && <p style={{ color: 'red', textAlign: 'center' }}>{message}</p>}
+                <input
+                    type="text"
+                    name="username"
+                    value={formData.username}
+                    onChange={onChange}
+                    required
+                    placeholder="Username"
+                    style={{
+                        width: 'calc(100% - 20px)',
+                        margin: '10px 0',
+                        padding: '15px',
+                        borderRadius: '5px',
+                        border: '1px solid #ccc',
+                        fontSize: '1rem',
+                    }}
+                />
+                <input
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={onChange}
+                    required
+                    placeholder="Password"
+                    style={{
+                        width: 'calc(100% - 20px)',
+                        margin: '10px 0',
+                        padding: '15px',
+                        borderRadius: '5px',
+                        border: '1px solid #ccc',
+                        fontSize: '1rem',
+                    }}
+                />
+                <button
+                    type="submit"
+                    style={{
+                        width: '100%',
+                        padding: '15px',
+                        borderRadius: '5px',
+                        border: 'none',
+                        backgroundColor: '#9eafc2', // Background color to match the signup page
+                        color: 'white',
+                        fontSize: '1rem',
+                        cursor: 'pointer',
+                        transition: 'background-color 0.3s ease',
+                    }}
+                >
+                    Sign In
+                </button>
+            </form>
+        </div>
     );
 };
 
