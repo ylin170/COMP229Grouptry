@@ -16,7 +16,7 @@ app.use(cors());
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/posts', require('./routes/posts'));
 app.use('/api/comments', require('./routes/comments'));
-app.use('/api/users', require('./routes/users'));  // Remove the incorrect duplicate line
+
 
 const PORT = process.env.PORT || 5000;
 
