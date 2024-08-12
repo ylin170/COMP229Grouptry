@@ -3,16 +3,20 @@ import axios from 'axios';
 import { FaCommentAlt, FaEdit, FaTrashAlt } from 'react-icons/fa';
 
 const AllPosts = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([]); // Initialize posts as an empty array
   const [commentContent, setCommentContent] = useState({});
-  const [editCommentId, setEditCommentId] = useState({}); // Use an object to track editing state by post ID
+  const [editCommentId, setEditCommentId] = useState(null); // Track editing state by comment ID
   const [editPostId, setEditPostId] = useState(null); // For tracking the post being edited
   const [postFormData, setPostFormData] = useState({ title: '', content: '' });
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await axios.get('/api/posts');
-      setPosts(res.data);
+      try {
+        const res = await axios.get('/api/posts');
+        setPosts(res.data);
+      } catch (err) {
+        console.error('Error fetching posts:', err);
+      }
     };
 
     fetchPosts();
@@ -29,14 +33,14 @@ const AllPosts = () => {
       const commentData = { content: commentContent[postId] };
       let res;
 
-      if (editCommentId[postId]) {
+      if (editCommentId) {
         // If we're editing an existing comment
-        res = await axios.put(`http://localhost:5000/api/comments/${editCommentId[postId]}`, commentData, {
+        res = await axios.put(`http://localhost:5000/api/comments/${editCommentId}`, commentData, {
           headers: { Authorization: `Bearer ${token}` }
         });
 
         // Clear edit state after updating
-        setEditCommentId({ ...editCommentId, [postId]: null });
+        setEditCommentId(null);
       } else {
         // If we're adding a new comment
         res = await axios.post(`http://localhost:5000/api/comments/${postId}`, commentData, {
@@ -48,7 +52,14 @@ const AllPosts = () => {
       setPosts(prevPosts =>
         prevPosts.map(post =>
           post._id === postId
-            ? { ...post, comments: [...(post.comments || []), res.data] }
+            ? { 
+                ...post, 
+                comments: post.comments ? 
+                  post.comments.map(comment => 
+                    comment._id === editCommentId ? res.data : comment
+                  ).concat(!editCommentId ? [res.data] : []) : 
+                  [res.data]
+              }
             : post
         )
       );
@@ -61,9 +72,9 @@ const AllPosts = () => {
     }
   };
 
-  const handleEditComment = (postId, commentId, content) => {
-    setEditCommentId({ ...editCommentId, [postId]: commentId });
-    setCommentContent({ ...commentContent, [postId]: content });
+  const handleEditComment = (commentId, content) => {
+    setEditCommentId(commentId);
+    setCommentContent({ ...commentContent, [editCommentId]: content });
   };
 
   const handleDeleteComment = async (postId, commentId) => {
@@ -226,10 +237,12 @@ const AllPosts = () => {
                 <div key={comment._id}>
                   <FaCommentAlt style={{ marginRight: '5px' }} />
                   {comment.content}
-                  <div style={commentActionsStyle}>
-                    <FaEdit onClick={() => handleEditComment(post._id, comment._id, comment.content)} style={{ cursor: 'pointer' }} />
-                    <FaTrashAlt onClick={() => handleDeleteComment(post._id, comment._id)} style={{ cursor: 'pointer' }} />
-                  </div>
+                  {editCommentId !== comment._id && (
+                    <div style={commentActionsStyle}>
+                      <FaEdit onClick={() => handleEditComment(comment._id, comment.content)} style={{ cursor: 'pointer' }} />
+                      <FaTrashAlt onClick={() => handleDeleteComment(post._id, comment._id)} style={{ cursor: 'pointer' }} />
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -268,14 +281,14 @@ const AllPosts = () => {
                 <input
                   type="text"
                   placeholder="Add a comment..."
-                  value={commentContent[editCommentId[post._id] ? editCommentId[post._id] : post._id] || ''}
-                  onChange={e => handleCommentChange(e, editCommentId[post._id] ? editCommentId[post._id] : post._id)}
+                  value={commentContent[post._id] || ''}
+                  onChange={e => handleCommentChange(e, post._id)}
                   style={commentInputStyle}
                 />
                 <FaCommentAlt style={commentIconStyle} />
               </div>
               <button type="submit" style={commentButtonStyle}>
-                {editCommentId[post._id] ? 'Update' : 'Post'}
+                {editCommentId ? 'Update' : 'Post'}
               </button>
             </form>
           </div>

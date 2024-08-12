@@ -31,7 +31,6 @@ const Home = () => {
   return (
     <div className="home-container" style={backgroundImageStyle}>
       <div className="options-grid">
-        <Link to="/myprofile" className="option">My Profile</Link>
         <Link to="/create-post" className="option">Create Post</Link>
         <Link to="/all-posts" className="option">All Posts</Link>
 
