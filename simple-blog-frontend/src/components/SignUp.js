@@ -13,7 +13,7 @@ const SignUp = () => {
   const onSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await axios.post('/api/auth/register', formData);
+      const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/register`, formData);
       localStorage.setItem('token', res.data.token);
       setMessage('User registered successfully');
     } catch (err) {
