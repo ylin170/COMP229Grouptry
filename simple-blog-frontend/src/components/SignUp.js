@@ -4,20 +4,25 @@ import { useNavigate } from 'react-router-dom';
 import './SignUp.css'; // Import the CSS file for other styling
 
 const SignUp = () => {
-  const [formData, setFormData] = useState({ username: '', password: '', email: '', bio: '' });
+  const [formData, setFormData] = useState({ username: '', password: '' });
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+
+  // Determine the correct API URL based on the environment
+  const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await axios.post('/api/auth/register', formData);
+      // Use the full API URL instead of a relative path
+      const res = await axios.post(`${apiBaseUrl}/api/auth/register`, formData);
       localStorage.setItem('token', res.data.token);
       setMessage('User registered successfully');
+      navigate('/'); // Redirect to the homepage or login page after successful signup
     } catch (err) {
-      setMessage(err.response.data.message);
+      setMessage(err.response?.data?.message || 'Registration failed');
     }
   };
 
