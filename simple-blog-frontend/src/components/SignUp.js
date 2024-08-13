@@ -9,14 +9,15 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   // Determine the correct API URL based on the environment
-  const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
+  // CHANGED: Added a dynamic API base URL to handle different environments
+  const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || 'https://simple-blog-app-6nyq.onrender.com';
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async e => {
     e.preventDefault();
     try {
-      // Use the full API URL instead of a relative path
+      // CHANGED: Use the full API URL instead of a relative path
       const res = await axios.post(`${apiBaseUrl}/api/auth/register`, formData);
       localStorage.setItem('token', res.data.token);
       setMessage('User registered successfully');
