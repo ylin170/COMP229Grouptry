@@ -4,25 +4,20 @@ import { useNavigate } from 'react-router-dom';
 import './SignUp.css'; // Import the CSS file for other styling
 
 const SignUp = () => {
-  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [formData, setFormData] = useState({ username: '', password: '', email: '', bio: '' });
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
-
-  // Ensure the API URL is correctly set
-  const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || 'https://simple-blog-app-6nyq.onrender.com';
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async e => {
     e.preventDefault();
     try {
-      // Use the full API URL instead of a relative path
-      const res = await axios.post(`${apiBaseUrl}/api/auth/register`, formData);
+      const res = await axios.post('/api/auth/register', formData);
       localStorage.setItem('token', res.data.token);
       setMessage('User registered successfully');
-      navigate('/'); // Redirect to the homepage or login page after successful signup
     } catch (err) {
-      setMessage(err.response?.data?.message || 'Registration failed');
+      setMessage(err.response.data.message);
     }
   };
 
