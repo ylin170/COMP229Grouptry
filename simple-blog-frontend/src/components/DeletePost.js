@@ -10,7 +10,7 @@ const DeletePost = () => {
   const onSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await axios.delete(`http://localhost:5000/api/posts/${postId}`, {
+      const res = await axios.delete(`http://localhost:10000/api/posts/${postId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       setMessage('Post deleted successfully');

@@ -11,7 +11,7 @@ const AddComment = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post(`http://localhost:5000/api/comments/${formData.postId}`, 
+      const res = await axios.post(`http://localhost:10000/api/comments/${formData.postId}`, 
       { content: formData.content }, 
       {
         headers: { Authorization: `Bearer ${token}` }

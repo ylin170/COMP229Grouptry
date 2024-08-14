@@ -8,7 +8,7 @@ const GetComments = () => {
   const onSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await axios.get(`http://localhost:5000/api/comments/${postId}`);
+      const res = await axios.get(`http://localhost:10000/api/comments/${postId}`);
       setComments(res.data);
     } catch (err) {
       console.error('Error fetching comments:', err);
